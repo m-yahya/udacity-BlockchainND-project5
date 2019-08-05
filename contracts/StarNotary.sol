@@ -15,6 +15,8 @@ contract StarNotary is ERC721 {
         string name;
     }
 
+    event NewStar(string name, uint256 starId);
+
     // Implement Task 1 Add a name and symbol properties
     // name: Is a short name to your token
     // symbol: Is a short string like 'USD' -> 'American Dollar'
@@ -31,9 +33,12 @@ contract StarNotary is ERC721 {
         Star memory newStar = Star(_name);
         // Star is an struct so we are creating a new Star
         tokenIdToStarInfo[_tokenId] = newStar;
+        
         // Creating in memory the Star -> tokenId mapping
         _mint(msg.sender, _tokenId);
         // _mint assign the the star with _tokenId to the sender address (ownership)
+        
+        emit NewStar(_name, _tokenId);
     }
 
     // Putting an Star for sale (Adding the star tokenid into the mapping starsForSale, first verify that the sender is the owner)
